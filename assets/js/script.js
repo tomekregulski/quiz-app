@@ -19,6 +19,7 @@ var startButton = document.querySelector("#start");
 var timerElement = document.querySelector("#timerCount");
 var timerCount;
 var questionNumber = 0;
+var body = document.querySelector("#body");
 
 // Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startGame);
@@ -119,6 +120,8 @@ function askQuestion() {
                 askQuestion();
             } else {
                 timerCount = timerCount- 10;
+                body.style.opacity = "0.5";
+                choices.style = "transform: translate(200px, 0); transition-duration: 5s";
             }
             
         })
@@ -131,8 +134,7 @@ function startTimer() {
     timerCount--;
     timerElement.textContent = timerCount;
     // Tests if time has run out
-    if (timerCount === 0) {
-      // Clears interval
+    if (timerCount <= 0) {
       var userName = prompt("What is your name?");
       localStorage.setItem("player", JSON.stringify(userName));
       localStorage.setItem("score", JSON.stringify(score));
@@ -141,7 +143,7 @@ function startTimer() {
           document.querySelector("#highscore").textContent = highScore;
       }
       questionNumber = 0;
-      console.log(questionNumber);
+      timerCount = 0;
       questionPrompt.removeChild(ask);
       while (choicesDisplay.firstChild) {
         choicesDisplay.removeChild(choicesDisplay.lastChild);
@@ -157,7 +159,7 @@ function startGame() {
     console.log(startButton.value);
     startButton.disabled = true;
     // isWin = false;
-    timerCount = 100;
+    timerCount = 20;
     // // Prevents start button from being clicked when round is in progress
     // startButton.disabled = true;
     // renderBlanks()
