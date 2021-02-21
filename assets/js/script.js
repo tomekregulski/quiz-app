@@ -94,6 +94,7 @@ function askQuestion() {
     var question = questions[questionNumber];
     var ask = document.createElement('span');
     ask.textContent = questions[questionNumber].prompt;
+    ask.id = "ask";
     questionPrompt.appendChild(ask);
     for (var i = 0; i < question.choices.length; i++) {
         var choice = document.createElement('button');
@@ -137,6 +138,11 @@ function startTimer() {
       }
       questionNumber = 0;
       console.log(questionNumber);
+      questionPrompt.removeChild(ask);
+      while (choicesDisplay.firstChild) {
+        choicesDisplay.removeChild(choicesDisplay.lastChild);
+      }
+      startButton.disabled = false;
       clearInterval(timer);
     //   loseGame();
     }
@@ -145,6 +151,7 @@ function startTimer() {
 
 function startGame() {
     console.log(startButton.value);
+    startButton.disabled = true;
     // isWin = false;
     timerCount = 5;
     // // Prevents start button from being clicked when round is in progress
