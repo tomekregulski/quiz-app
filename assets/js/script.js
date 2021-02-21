@@ -108,15 +108,19 @@ function askQuestion() {
         btns[i].addEventListener('click', function(event) {
             if (this.id == question.correct) {
                 score++;
+                console.log(this.id);
                 console.log(score);
                 questionNumber++;
                 questionPrompt.removeChild(ask);
                 for ( var i = 0; i < question.choices.length; i++) {
                     var elem = document.getElementById(i);
                     elem.parentNode.removeChild(elem);
-                }
+                } 
                 askQuestion();
+            } else {
+                timerCount = timerCount- 10;
             }
+            
         })
     }
 };
@@ -153,7 +157,7 @@ function startGame() {
     console.log(startButton.value);
     startButton.disabled = true;
     // isWin = false;
-    timerCount = 5;
+    timerCount = 100;
     // // Prevents start button from being clicked when round is in progress
     // startButton.disabled = true;
     // renderBlanks()
