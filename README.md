@@ -15,9 +15,12 @@ This page has been deployed on Github as a work-in-progress, and can be viewed h
 
 # What I Learned
 
-This project has served to not only solidify what I have learned about HTML and CSS thus far, but also challenged me to expand my working knowledge of the languages in order to meet the functionality requirements.
-
-I am excited to know that I am now capable of producing an elegant site that is responsive to different screen sizes, makes use of makes use of pseudo classes to enhance certain parts of the user experience, and even make use of a few lines of JavaScript/jQuery to include a collapsible menu for smaller screens. Additionally, this project helped me gain confidence in turning to the online community for solutions to specific design and functionality issues.
+-organizing and coordinating complex actions via JS
+-leaning on JS to create content and keep HTML minimal
+-create, style, and remove elements through JS
+-work with a timer in JS
+-use an object array to display specific information based on triggers
+-use event listeners to coordinate a sequence of actions
 
 # Installation and Use
 

@@ -101,8 +101,7 @@ var questions = [
 ];
 
 function askQuestion() {
-    correctText.setAttribute("id", "correctText");
-    wrongText.setAttribute("id", "wrongText");
+    setTimeout(function() { correctText.setAttribute("id", "correctText"); }, 500);
     var question = questions[questionNumber];
     var ask = document.createElement('span');
     ask.setAttribute("class", "mt-4");
@@ -146,7 +145,7 @@ function checkAnswer() {
         choicesDisplay.removeChild(btn3);
         choicesDisplay.removeChild(btn4);
         if (questionNumber < questions.length){
-            setTimeout(function() { askQuestion(); }, 500);
+            askQuestion();
         }
     } else {
         wrongText.setAttribute("id", "wrongText.show");
@@ -229,20 +228,26 @@ function startGame() {
 
 function submitNameLocal(event) {
     event.preventDefault();
+    var target = document.querySelector('#yourName');
     var playerName = player.value;
-    console.log(score);
-    console.log(playerName);
     if (score > highscore) {
         highscore = score;
         highScoreDisplay.textContent = playerName + " - " + score;
     }
-    var target = document.querySelector('#yourName');
+    clearChildren();
     var play = document.createElement('button');
     play.id = "play"
     play.textContent = "Play Again?"
     target.appendChild(play);
-    play.setAttribute("class", "btn btn-primary px-4 mt-5");
+    play.setAttribute("class", "btn btn-primary px-4 mt-4");
     play.addEventListener("click", playAgain);
+};
+
+function clearChildren() {
+    var target = document.querySelector('#yourName');
+    while (target.firstChild) {
+        target.removeChild(target.firstChild);
+    }
 };
 
 function playAgain() {
@@ -254,5 +259,4 @@ function playAgain() {
     timerCount = 0;
     score = 0;
     timerElement.textContent = timerCount;
-    yourName.removeChild(form);
 };
