@@ -246,7 +246,7 @@ function saveName(event) {
     // if score is higher than previous value of highscore, replace as new value and save new high score
     if (score > highscore) {
         highscore = score;
-        highScoreDisplay.textContent = playerName + " - " + score;
+        highScoreDisplay.textContent = playerName + ", " + score;
     }
     // call function to clear form elements before creating "Play Again?" button
     clearChildren();
