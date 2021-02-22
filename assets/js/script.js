@@ -1,6 +1,5 @@
-// Currently not updating High Score after first onw
-// Currently not removing submit form
-// Possible to reload page on submit and pull highscore from memory?
+// Currently not updating High Score after first one
+// Name = undefined after the first one
 
 var timer;
 var timerCount;
@@ -12,6 +11,7 @@ var startButton = document.querySelector("#start");
 var timerElement = document.querySelector("#timerCount");
 var questionNumber = 0;
 var body = document.querySelector("#body");
+var yourName = document.querySelector("#yourName");
 
 startButton.addEventListener("click", startGame);
 
@@ -166,6 +166,7 @@ function startGame() {
     var field = document.createElement('input');
     var submit = document.createElement('button');
     label.textContent = "Please enter your name: ";
+    form.id = "#form";
     label.for = "player";
     label.type = "text"
     submit.id = "submitName";
@@ -203,9 +204,11 @@ function submitNameLocal(event) {
 };
 
 function playAgain() {
+    var form = document.getElementById('#form');
     startButton.disabled = false;
     yourName.removeChild(play);
     questionNumber = 0;
     timerCount = 10;
     timerElement.textContent = timerCount;
+    yourName.removeChild(form);
 };
