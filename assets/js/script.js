@@ -1,3 +1,4 @@
+//Define global variables
 var timer;
 var timerCount;
 var score = 0;
@@ -13,10 +14,14 @@ var yourName = document.querySelector("#yourName");
 var correctText = document.querySelector("#correctText");
 var wrongText = document.querySelector("#wrongText");
 
+//Event listener for start button
 startButton.addEventListener("click", startGame);
+
+//Sets innerHTML of corrent/incorrect messages
 correctText.innerHTML = "&nbsp;&nbsp;&nbsp;Correct!&nbsp;&nbsp;&nbsp;";
 wrongText.innerHTML = "&nbsp;&nbsp;&nbsp;Wrong!&nbsp;&nbsp;&nbsp;";
 
+// Questions array
 var questions = [
 {
     prompt: "The answer is yes",
@@ -100,9 +105,52 @@ var questions = [
 },
 ];
 
+// Start the game
+function startGame() {
+    console.log(startButton.value);
+    startButton.disabled = true;
+    timerCount = 20;
+    timerElement.textContent = timerCount;
+    startTimer();
+    askQuestion();
+  };
+
+// Start the Timer, set trigger for the end of game
+function startTimer() {
+    startButton.setAttribute("class", "d-none");
+    // Sets timer
+    timer = setInterval(function() {
+      timerCount--;
+      timerElement.textContent = timerCount;
+      // Tests if time has run out. If so, clear out the question and choices and initiate end game sequence
+      if (timerCount <= 0 || questionNumber == questions.length) {
+        correctText.setAttribute("id", "correctText");
+        if (questionNumber < questions.length) {
+          var ask = document.querySelector("#ask");
+          var btn1 = document.querySelector("#button1");
+          var btn2 = document.querySelector("#button2");
+          var btn3 = document.querySelector("#button3");
+          var btn4 = document.querySelector("#button4");
+          questionPrompt.removeChild(ask);
+          choicesDisplay.removeChild(btn1);
+          choicesDisplay.removeChild(btn2);
+          choicesDisplay.removeChild(btn3);
+          choicesDisplay.removeChild(btn4);
+        }
+        clearInterval(timer);
+        timerCount = 0;
+        timerElement.textContent = timerCount;
+        gameOver();
+      }
+    }, 1000);
+  };
+
+// Ask questions
 function askQuestion() {
+    // for questions 2 and onward, "Correct!" will display for a moment before being hidden
     setTimeout(function() { correctText.setAttribute("id", "correctText"); }, 500);
-    var question = questions[questionNumber];
+    var question = questions[questionNumber]; 
+    // pulls question info from the array, creates span and button elements
     var ask = document.createElement('span');
     ask.setAttribute("class", "mt-4");
     ask.textContent = questions[questionNumber].prompt;
@@ -116,6 +164,7 @@ function askQuestion() {
         choice.setAttribute("class", "btn-sm btn-primary px-4 mx-2");
         choicesDisplay.appendChild(choice);
     }
+    // create event listeners for the answer buttons so answer selection can be checked for correct/incorrect
     var btn1 = document.querySelector("#button1");
     var btn2 = document.querySelector("#button2");
     var btn3 = document.querySelector("#button3");
@@ -125,19 +174,20 @@ function askQuestion() {
     btn3.addEventListener('click', checkAnswer);
     btn4.addEventListener('click', checkAnswer);
 };
-  
+
+// Check for answer correct/incorrect  
 function checkAnswer() {
+    // redefine question and button variables locally
     var ask = document.querySelector("#ask");
     var question = questions[questionNumber];
     var btn1 = document.querySelector("#button1");
     var btn2 = document.querySelector("#button2");
     var btn3 = document.querySelector("#button3");
     var btn4 = document.querySelector("#button4");
+    // if correct answer, increase score, advance to next question number, remove previous question span and answer buttons, ask new question
     if (this.value == question.correct) {
         correctText.setAttribute("id", "correctText.show");
         score++;
-        console.log(this.id);
-        console.log(score);
         questionNumber++;
         questionPrompt.removeChild(ask);
         choicesDisplay.removeChild(btn1);
@@ -147,6 +197,7 @@ function checkAnswer() {
         if (questionNumber < questions.length){
             askQuestion();
         }
+    // if incorrect answer, deduct time, display "Wrong!" for 50 milliseconds, possibly increment visual distortion elements
     } else {
         wrongText.setAttribute("id", "wrongText.show");
         timerCount -= 3;
@@ -156,47 +207,10 @@ function checkAnswer() {
     }
 };
 
-function startTimer() {
-  startButton.setAttribute("class", "d-none");
-  // Sets timer
-  timer = setInterval(function() {
-    timerCount--;
-    timerElement.textContent = timerCount;
-    // Tests if time has run out
-    if (timerCount <= 0 || questionNumber == questions.length) {
-      correctText.setAttribute("id", "correctText");
-      if (questionNumber < questions.length) {
-        var ask = document.querySelector("#ask");
-        var btn1 = document.querySelector("#button1");
-        var btn2 = document.querySelector("#button2");
-        var btn3 = document.querySelector("#button3");
-        var btn4 = document.querySelector("#button4");
-        questionPrompt.removeChild(ask);
-        choicesDisplay.removeChild(btn1);
-        choicesDisplay.removeChild(btn2);
-        choicesDisplay.removeChild(btn3);
-        choicesDisplay.removeChild(btn4);
-      }
-      clearInterval(timer);
-      timerCount = 0;
-      timerElement.textContent = timerCount;
-      gameOver();
-    }
-  }, 1000);
-}
-
-function startGame() {
-    console.log(startButton.value);
-    startButton.disabled = true;
-    timerCount = 5;
-    timerElement.textContent = timerCount;
-    startTimer();
-    askQuestion();
-  };
-
-
-  function gameOver() {
-    body.style.opacity = "1";
+// End game, submit name
+function gameOver() {
+    // body.style.opacity = "1";
+    // define and create name submit form elements
     var target = document.querySelector('#yourName');
     var form = document.createElement('form');
     var div = document.createElement('div');
@@ -213,28 +227,30 @@ function startGame() {
     field.type = "text";
     field.name = "player";
     submit.textContent = "Submit";
-
     submit.setAttribute("class", "btn-sm btn-success px-4 mt-2");
     field.setAttribute("class", "form-control");
     div.setAttribute("class", "form-inline");
-    // add elements to DOM
     target.appendChild(form);
     form.appendChild(div);
     div.appendChild(label);
     div.appendChild(field);
     target.appendChild(submit);
-    submit.addEventListener("click", submitNameLocal);
+    submit.addEventListener("click", saveName);
 };
 
-function submitNameLocal(event) {
+// Save name if a new high score
+function saveName(event) {
     event.preventDefault();
     var target = document.querySelector('#yourName');
     var playerName = player.value;
+    // if score is higher than previous value of highscore, replace as new value and save new high score
     if (score > highscore) {
         highscore = score;
         highScoreDisplay.textContent = playerName + " - " + score;
     }
+    // call function to clear form elements before creating "Play Again?" button
     clearChildren();
+    // create "Play Again?" button and set everent listener to trigger reset of game area
     var play = document.createElement('button');
     play.id = "play"
     play.textContent = "Play Again?"
@@ -243,6 +259,7 @@ function submitNameLocal(event) {
     play.addEventListener("click", playAgain);
 };
 
+// Ensure all children are removed before "Play Again?" button appears
 function clearChildren() {
     var target = document.querySelector('#yourName');
     while (target.firstChild) {
@@ -250,6 +267,7 @@ function clearChildren() {
     }
 };
 
+// Offer user a chance to play again
 function playAgain() {
     var form = document.getElementById('#form');
     startButton.disabled = false;
