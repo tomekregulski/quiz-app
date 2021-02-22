@@ -5,7 +5,7 @@
 * [Installation and Usage](#installation-and-usa)
 * [License](#license)
 
-![https://github.com/tomekregulski/quiz-app/blob/main/assets/images/quiz-gif.gif]
+![github](https://github.com/tomekregulski/quiz-app/blob/main/assets/images/quiz-gif.gif)
 
 # Description
 
