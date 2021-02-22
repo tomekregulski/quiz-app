@@ -1,31 +1,19 @@
-/*
-1) Start Button -> Starts timer and shows the first question 
-2) Correct answer -> new question, score ++
-3) Wrong answer -> deduct time
-4) Timer = 0 \\ All questions answered -> Game Over
-5) Game Over -> Save initials and score
-
-a) [need an array of questions]
-b) need loop to have questions -> li
-
-*/
+// Currently not updating High Score after first onw
+// Currently not removing submit form
+// Possible to reload page on submit and pull highscore from memory?
 
 var timer;
+var timerCount;
 var score = 0;
 var highScore = 0;
 var questionPrompt = document.querySelector("#question");
 var choicesDisplay = document.querySelector("#choices");
 var startButton = document.querySelector("#start");
 var timerElement = document.querySelector("#timerCount");
-var timerCount;
 var questionNumber = 0;
 var body = document.querySelector("#body");
 
-// Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startGame);
-
-// The setTimer function starts and stops the timer and triggers winGame() and loseGame()
-
 
 
 var questions = [
@@ -119,9 +107,9 @@ function askQuestion() {
                 } 
                 askQuestion();
             } else {
-                timerCount = timerCount- 10;
-                body.style.opacity = "0.5";
-                choices.style = "transform: translate(200px, 0); transition-duration: 5s";
+                // timerCount = (timerCount - 10); // CAUSING PERMANENT 
+                // body.style.opacity = "0.5";
+                // choices.style = "transform: translate(200px, 0); transition-duration: 5s";
             }
             
         })
@@ -130,26 +118,28 @@ function askQuestion() {
 
 function startTimer() {
   // Sets timer
+  console.log(timerCount);
   timer = setInterval(function() {
     timerCount--;
     timerElement.textContent = timerCount;
+    console.log(timerCount);
     // Tests if time has run out
     if (timerCount <= 0) {
-      var userName = prompt("What is your name?");
-      localStorage.setItem("player", JSON.stringify(userName));
-      localStorage.setItem("score", JSON.stringify(score));
-      if (score > highScore) {
-          highScore = userName + " - " + score;
-          document.querySelector("#highscore").textContent = highScore;
-      }
-      questionNumber = 0;
-      timerCount = 0;
+    //   var userName = prompt("What is your name?");
+    //   localStorage.setItem("player", JSON.stringify(userName));
+    //   localStorage.setItem("score", JSON.stringify(score));
+    //   if (score > highScore) {
+    //       highScore = userName + " - " + score;
+    //       document.querySelector("#highscore").textContent = highScore;
+    //   }
       questionPrompt.removeChild(ask);
       while (choicesDisplay.firstChild) {
         choicesDisplay.removeChild(choicesDisplay.lastChild);
       }
-      startButton.disabled = false;
       clearInterval(timer);
+      timerCount = 0;
+      timerElement.textContent = timerCount;
+      gameOver();
     //   loseGame();
     }
   }, 1000);
@@ -159,11 +149,63 @@ function startGame() {
     console.log(startButton.value);
     startButton.disabled = true;
     // isWin = false;
-    timerCount = 20;
-    // // Prevents start button from being clicked when round is in progress
-    // startButton.disabled = true;
-    // renderBlanks()
+    timerCount = 5;
+    timerElement.textContent = timerCount;
+    console.log(timerCount);
     startTimer();
     askQuestion();
   };
 
+
+  function gameOver() {
+    console.log("WORKING");
+    var target = document.querySelector('#yourName');
+    
+    var form = document.createElement('form');
+    var label = document.createElement('label');
+    var field = document.createElement('input');
+    var submit = document.createElement('button');
+    label.textContent = "Please enter your name: ";
+    label.for = "player";
+    label.type = "text"
+    submit.id = "submitName";
+    field.id = "player";
+    field.type = "text";
+    field.name = "player";
+    submit.textContent = "Submit";
+    
+    // add elements to DOM
+    target.appendChild(form);
+    form.appendChild(label);
+    form.appendChild(field);
+    form.appendChild(submit);
+    // submitBtn.addEventListener("click", gameOver);
+    submit.addEventListener("click", submitNameLocal);
+};
+
+function submitNameLocal(event) {
+    event.preventDefault();
+    console.log("IT IS WORKING");
+    console.log(player.value);
+    player = player.value;
+    localStorage.setItem("player", JSON.stringify(player));
+    localStorage.setItem("score", JSON.stringify(score));
+    var target = document.querySelector('#yourName');
+    var play = document.createElement('button');
+    play.id = "play"
+    play.textContent = "Play Again?"
+    target.appendChild(play);
+    play.addEventListener("click", playAgain);
+    if (score > highScore) {
+        highScore = player + " - " + score;
+        document.querySelector("#highscore").textContent = highScore;
+    }
+};
+
+function playAgain() {
+    startButton.disabled = false;
+    yourName.removeChild(play);
+    questionNumber = 0;
+    timerCount = 10;
+    timerElement.textContent = timerCount;
+};
