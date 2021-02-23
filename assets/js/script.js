@@ -13,6 +13,7 @@ var body = document.querySelector("#body");
 var yourName = document.querySelector("#yourName");
 var correctText = document.querySelector("#correctText");
 var wrongText = document.querySelector("#wrongText");
+var leaderboard = [];
 
 //Event listener for start button
 startButton.addEventListener("click", startGame);
@@ -109,7 +110,7 @@ var questions = [
 function startGame() {
     console.log(startButton.value);
     startButton.disabled = true;
-    timerCount = 20;
+    timerCount = 10;
     timerElement.textContent = timerCount;
     startTimer();
     askQuestion();
@@ -241,16 +242,39 @@ function gameOver() {
 // Save name if a new high score
 function saveName(event) {
     event.preventDefault();
-    var target = document.querySelector('#yourName');
-    var playerName = player.value;
+    var playerName = player.value.trim();
     // if score is higher than previous value of highscore, replace as new value and save new high score
     if (score > highscore) {
         highscore = score;
         highScoreDisplay.textContent = playerName + ", " + score;
     }
-    // call function to clear form elements before creating "Play Again?" button
-    clearChildren();
-    // create "Play Again?" button and set everent listener to trigger reset of game area
+    var user = {
+        name: playerName,
+        score: score,
+    }
+    leaderboard.push(user);
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    //clear all form elements
+    var target = document.querySelector('#yourName');
+    while (target.firstChild) {
+        target.removeChild(target.firstChild);
+    }
+    buildLeaderboard();
+};
+
+function buildLeaderboard() {
+    // Retrieve leaderboard array from local storage, sort it in descending order based on score value, and create a list with the top 4 scores
+    leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+    var target = document.querySelector('#yourName');
+    leaderboard.sort((a, b) => b.score - a.score);
+
+    for (var i = 0; (i < leaderboard.length) && (i <4); i++) {
+        var list = document.createElement('li');
+        list.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
+        list.style = "font-size: .5em";
+        questionPrompt.appendChild(list);
+    }
+    // Create "Play Again?" button
     var play = document.createElement('button');
     play.id = "play"
     play.textContent = "Play Again?"
@@ -259,20 +283,16 @@ function saveName(event) {
     play.addEventListener("click", playAgain);
 };
 
-// Ensure all children are removed before "Play Again?" button appears
-function clearChildren() {
-    var target = document.querySelector('#yourName');
-    while (target.firstChild) {
-        target.removeChild(target.firstChild);
-    }
-};
-
 // Offer user a chance to play again
 function playAgain() {
     var form = document.getElementById('#form');
     startButton.disabled = false;
     startButton.setAttribute("class", "btn btn-primary px-4 mt-5");
     yourName.removeChild(play);
+    var target = document.querySelector('#question');
+    while (target.firstChild) {
+        target.removeChild(target.firstChild);
+    }
     questionNumber = 0;
     timerCount = 0;
     score = 0;
