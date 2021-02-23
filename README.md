@@ -16,11 +16,13 @@ This page has been deployed on Github as a work-in-progress, and can be viewed h
 # What I Learned
 
 -organizing and coordinating complex actions via JS
--leaning on JS to create content and keep HTML minimal
+-leaning on JS to create a dynamic page while keeping HTML minimal
 -create, style, and remove elements through JS
 -work with a timer in JS
 -use an object array to display specific information based on triggers
 -use event listeners to coordinate a sequence of actions
+-use arrays and local storage to save and recall information
+-sort through an object array based on a shared value
 
 # Installation and Use
 

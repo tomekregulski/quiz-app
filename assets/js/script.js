@@ -84,27 +84,7 @@ var questions = [
     choices: ["no", "ain't", "not", "yes"],
     correct: "2",
 },
-{
-    prompt: "The answer is ain't",
-    choices: ["yes", "no", "not", "ain't"],
-    correct: "2",
-},
-{
-    prompt: "The answer is also ain't",
-    choices: ["no", "yes", "ain't", "not"],
-    correct: "2",
-},
-{
-    prompt: "The answer might be ain't",
-    choices: ["ain't", "not", "yes", "no"],
-    correct: "1",
-},
-{
-    prompt: "The answer is definitely ain't",
-    choices: ["no", "ain't", "not", "yes"],
-    correct: "2",
-},
-];
+]
 
 // Start the game
 function startGame() {
@@ -203,14 +183,11 @@ function checkAnswer() {
         wrongText.setAttribute("id", "wrongText.show");
         timerCount -= 3;
         setTimeout(function() { wrongText.setAttribute("id", "wrongText"); }, 500);
-        // body.style.opacity = "0.5";
-        // choices.style = "transform: translate(200px, 0); transition-duration: 5s";
     }
 };
 
 // End game, submit name
 function gameOver() {
-    // body.style.opacity = "1";
     // define and create name submit form elements
     var target = document.querySelector('#yourName');
     var form = document.createElement('form');
