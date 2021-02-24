@@ -90,15 +90,29 @@ var questions = [
 },
 ]
 
-// Start the game
-function startGame() {
-    console.log(startButton.value);
-    startButton.disabled = true;
+init();
+
+function init() {
+    getHighscore();
     timerCount = 10;
     timerElement.textContent = timerCount;
+}
+
+function getHighscore() {
+    leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+    leaderboard.sort((a, b) => b.score - a.score);
+    for (var i = 0; (i < 1); i++) {
+        var list = document.createElement('li');
+        highScoreDisplay.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
+    }
+};
+
+// Start the game
+function startGame() {
+    startButton.disabled = true;
     startTimer();
     askQuestion();
-  };
+};
 
 // Start the Timer, set trigger for the end of game
 function startTimer() {
