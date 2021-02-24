@@ -1,6 +1,10 @@
+// reduce listeners on children, target parents instead
+// This is your score upon game over
+
 //Define global variables
 var timer;
 var timerCount;
+var currentScore = document.querySelector("#score");
 var score = 0;
 var highscore = 0;
 var highScoreDisplay = document.querySelector("#highscore");
@@ -175,6 +179,7 @@ function checkAnswer() {
     if (this.value == question.correct) {
         correctText.setAttribute("id", "correctText.show");
         score++;
+        currentScore.textContent = score;
         questionNumber++;
         questionPrompt.removeChild(ask);
         choicesDisplay.removeChild(btn1);
