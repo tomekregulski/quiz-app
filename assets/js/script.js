@@ -14,13 +14,16 @@ var yourName = document.querySelector("#yourName");
 var correctText = document.querySelector("#correctText");
 var wrongText = document.querySelector("#wrongText");
 var leaderboard = [];
+var ask;
+var btn1;
+var btn2;
+var btn3;
+var btn4;
+var choice;
+var question;
 
 //Event listener for start button
 startButton.addEventListener("click", startGame);
-
-//Sets innerHTML of corrent/incorrect messages
-correctText.innerHTML = "&nbsp;&nbsp;&nbsp;Correct!&nbsp;&nbsp;&nbsp;";
-wrongText.innerHTML = "&nbsp;&nbsp;&nbsp;Wrong!&nbsp;&nbsp;&nbsp;";
 
 // Questions array
 var questions = [
@@ -107,16 +110,11 @@ function startTimer() {
       if (timerCount <= 0 || questionNumber == questions.length) {
         correctText.setAttribute("id", "correctText");
         if (questionNumber < questions.length) {
-          var ask = document.querySelector("#ask");
-          var btn1 = document.querySelector("#button1");
-          var btn2 = document.querySelector("#button2");
-          var btn3 = document.querySelector("#button3");
-          var btn4 = document.querySelector("#button4");
-          questionPrompt.removeChild(ask);
-          choicesDisplay.removeChild(btn1);
-          choicesDisplay.removeChild(btn2);
-          choicesDisplay.removeChild(btn3);
-          choicesDisplay.removeChild(btn4);
+            questionPrompt.removeChild(ask);
+            target = choicesDisplay;
+            while (target.firstChild) {
+                target.removeChild(target.firstChild);
+            }
         }
         clearInterval(timer);
         timerCount = 0;
@@ -130,15 +128,15 @@ function startTimer() {
 function askQuestion() {
     // for questions 2 and onward, "Correct!" will display for a moment before being hidden
     setTimeout(function() { correctText.setAttribute("id", "correctText"); }, 500);
-    var question = questions[questionNumber]; 
+    question = questions[questionNumber]; 
     // pulls question info from the array, creates span and button elements
-    var ask = document.createElement('span');
+    ask = document.createElement('span');
     ask.setAttribute("class", "mt-4");
     ask.textContent = questions[questionNumber].prompt;
     ask.id = "ask";
     questionPrompt.appendChild(ask);
     for (var i = 0; i < question.choices.length; i++) {
-        var choice = document.createElement('button');
+        choice = document.createElement('button');
         choice.textContent = question.choices[i];
         choice.id = "button" + (i + 1);
         choice.value = i;
@@ -146,10 +144,10 @@ function askQuestion() {
         choicesDisplay.appendChild(choice);
     }
     // create event listeners for the answer buttons so answer selection can be checked for correct/incorrect
-    var btn1 = document.querySelector("#button1");
-    var btn2 = document.querySelector("#button2");
-    var btn3 = document.querySelector("#button3");
-    var btn4 = document.querySelector("#button4");
+    btn1 = document.querySelector("#button1");
+    btn2 = document.querySelector("#button2");
+    btn3 = document.querySelector("#button3");
+    btn4 = document.querySelector("#button4");
     btn1.addEventListener('click', checkAnswer);
     btn2.addEventListener('click', checkAnswer);
     btn3.addEventListener('click', checkAnswer);
@@ -158,13 +156,6 @@ function askQuestion() {
 
 // Check for answer correct/incorrect  
 function checkAnswer() {
-    // redefine question and button variables locally
-    var ask = document.querySelector("#ask");
-    var question = questions[questionNumber];
-    var btn1 = document.querySelector("#button1");
-    var btn2 = document.querySelector("#button2");
-    var btn3 = document.querySelector("#button3");
-    var btn4 = document.querySelector("#button4");
     // if correct answer, increase score, advance to next question number, remove previous question span and answer buttons, ask new question
     if (this.value == question.correct) {
         correctText.setAttribute("id", "correctText.show");
