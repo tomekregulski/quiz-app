@@ -13,7 +13,7 @@ var body = document.querySelector("#body");
 var yourName = document.querySelector("#yourName");
 var correctText = document.querySelector("#correctText");
 var wrongText = document.querySelector("#wrongText");
-var leaderboard = [];
+var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 var ask;
 var btn1;
 var btn2;
