@@ -1,5 +1,4 @@
 // reduce listeners on children, target parents instead
-// This is your score upon game over
 
 //Define global variables
 var timer;
@@ -141,7 +140,7 @@ function startTimer() {
         gameOver();
       }
     }, 1000);
-  };
+};
 
 // Ask questions
 function askQuestion() {
