@@ -1,4 +1,6 @@
 // reduce listeners on children, target parents instead
+// make gif
+//add questions
 
 //Define global variables
 var timer;
@@ -32,63 +34,23 @@ startButton.addEventListener("click", startGame);
 // Questions array
 var questions = [
 {
-    prompt: "The answer is yes",
-    choices: ["yes", "no", "not", "ain't"],
-    correct: "0",
-},
-{
-    prompt: "The answer is also yes",
-    choices: ["no", "yes", "not", "ain't"],
-    correct: "1",
-},
-{
-    prompt: "The answer might be yes",
-    choices: ["no", "not", "yes", "ain't"],
+    prompt: "What is the HTML tag under which one can write the JavaScript code? <p id='geek'>GeeksforGeeks</p> ",
+    choices: ["<javascript>", "<scripted>", "<script>", "<js>"],
     correct: "2",
 },
 {
-    prompt: "The answer is definitely yes",
-    choices: ["no", "ain't", "not", "yes"],
-    correct: "3",
+    prompt: "What is the correct syntax for referring to an external script called “geek.js”?",
+    choices: ["<script src=”geek.js”>", " <script href=”geek.js”>", " <script ref=”geek.js”>", "<script name=”geek.js”>"],
+    correct: "0",
 },
 {
-    prompt: "The answer is no",
-    choices: ["yes", "no", "not", "ain't"],
+    prompt: "The external JavaScript file must contain <script> tag. True or False?",
+    choices: ["true", "false"],
     correct: "1",
 },
 {
-    prompt: "The answer is also no",
-    choices: ["no", "yes", "not", "ain't"],
-    correct: "0",
-},
-{
-    prompt: "The answer might be no",
-    choices: ["no", "not", "yes", "ain't"],
-    correct: "0",
-},
-{
-    prompt: "The answer is definitely no",
-    choices: ["no", "ain't", "not", "yes"],
-    correct: "0",
-},
-{
-    prompt: "The answer is not",
-    choices: ["yes", "no", "not", "ain't"],
-    correct: "2",
-},
-{
-    prompt: "The answer is also not",
-    choices: ["no", "yes", "not", "ain't"],
-    correct: "2",
-},
-{
-    prompt: "The answer might be not",
-    choices: ["no", "not", "yes", "ain't"],
-    correct: "1",
-},
-{
-    prompt: "The answer is definitely not",
-    choices: ["no", "ain't", "not", "yes"],
+    prompt: "Which of the following is not a reserved word in JavaScript?",
+    choices: ["interface", "throws", "program", "short"],
     correct: "2",
 },
 ]
@@ -202,14 +164,17 @@ function gameOver() {
     var target = document.querySelector('#yourName');
     var form = document.createElement('form');
     var div = document.createElement('div');
+    // var scoreText = document.createElement('p');
     var label = document.createElement('label');
     var field = document.createElement('input');
     var submit = document.createElement('button');
     label.textContent = "Please enter your name: ";
     label.setAttribute("class", "mr-2")
+    // div.setAttribute("class", "row d-flex flex-column justify-content-center")
     form.id = "#form";
     label.for = "player";
     label.type = "text"
+    // scoreText.textContent = `Your final score is ${score}`;
     submit.id = "submitName";
     field.id = "player";
     field.type = "text";
@@ -220,6 +185,7 @@ function gameOver() {
     div.setAttribute("class", "form-inline");
     target.appendChild(form);
     form.appendChild(div);
+    // div.appendChild(scoreText);
     div.appendChild(label);
     div.appendChild(field);
     target.appendChild(submit);
