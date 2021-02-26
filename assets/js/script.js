@@ -34,18 +34,18 @@ startButton.addEventListener("click", startGame);
 // Questions array
 var questions = [
 {
-    prompt: "What is the HTML tag under which one can write the JavaScript code? <p id='geek'>GeeksforGeeks</p> ",
+    prompt: "Which HTML tag is used to link a javascript file?",
     choices: ["<javascript>", "<scripted>", "<script>", "<js>"],
     correct: "2",
 },
 {
-    prompt: "What is the correct syntax for referring to an external script called “geek.js”?",
+    prompt: "What is the correct full syntax for linking script.js to an HTML file?",
     choices: ["<script src=”geek.js”>", " <script href=”geek.js”>", " <script ref=”geek.js”>", "<script name=”geek.js”>"],
     correct: "0",
 },
 {
-    prompt: "The external JavaScript file must contain <script> tag. True or False?",
-    choices: ["true", "false"],
+    prompt: "Which symbols are used to enclose an array?",
+    choices: ["{}", "[]", "<>", "()"],
     correct: "1",
 },
 {
@@ -53,13 +53,18 @@ var questions = [
     choices: ["interface", "throws", "program", "short"],
     correct: "2",
 },
+{
+    prompt: "Which is a way of allowing JavaScript objects to be easily communicated with other languages?",
+    choices: ["JSON", "AJAX", "API", "MongoDB"],
+    correct: "0",
+},
 ]
 
 init();
 
 function init() {
     getHighscore();
-    timerCount = 10;
+    timerCount = 20;
     timerElement.textContent = timerCount;
 }
 
@@ -113,6 +118,7 @@ function askQuestion() {
     ask = document.createElement('span');
     ask.setAttribute("class", "mt-4");
     ask.textContent = questions[questionNumber].prompt;
+    ask.setAttribute("style", "font-size: .5em");
     ask.id = "ask";
     questionPrompt.appendChild(ask);
     for (var i = 0; i < question.choices.length; i++) {
@@ -120,7 +126,7 @@ function askQuestion() {
         choice.textContent = question.choices[i];
         choice.id = "button" + (i + 1);
         choice.value = i;
-        choice.setAttribute("class", "btn-sm btn-primary px-4 mx-2");
+        choice.setAttribute("class", "btn-sm btn-primary px-2 mx-2 mt-1");
         choicesDisplay.appendChild(choice);
     }
     // create event listeners for the answer buttons so answer selection can be checked for correct/incorrect
