@@ -71,12 +71,14 @@ var questions = [
 },
 ]
 
+// trigger init function, which loads the highscore upon page load, if there is one in localStorage
 init();
 
 function init() {
     getHighscore();
 }
 
+// Loads the current high score to be displayed on the page
 function getHighscore() {
     if (JSON.parse(localStorage.getItem("leaderboard"))) {
         leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
@@ -94,7 +96,7 @@ function startGame() {
     askQuestion();
 };
 
-// Start the Timer, set trigger for the end of game
+// Start the timer, set trigger for the end of game
 function startTimer() {
     startButton.setAttribute("class", "d-none");
     timerCount = 50;
@@ -168,7 +170,7 @@ function checkAnswer() {
         if (questionNumber < questions.length){
             askQuestion();
         }
-    // if incorrect answer, deduct time, display "Wrong!" for 50 milliseconds, possibly increment visual distortion elements
+    // if incorrect answer, deduct time, display "Wrong!" for 50 milliseconds
     } else {
         wrongText.setAttribute("id", "wrongText.show");
         timerCount -= 3;
@@ -251,7 +253,7 @@ function buildLeaderboard() {
     play.addEventListener("click", playAgain);
 };
 
-// Offer user a chance to play again
+// Offer user a chance to play again and call functions to reset game to pre-start status
 function playAgain() {
     startButton.disabled = false;
     startButton.setAttribute("class", "btn btn-primary px-4 mt-5");
@@ -264,4 +266,5 @@ function playAgain() {
     timerCount = 0;
     score = 0;
     timerElement.textContent = timerCount;
+    getHighscore();
 };
