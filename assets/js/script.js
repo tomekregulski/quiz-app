@@ -1,7 +1,3 @@
-// reduce listeners on children, target parents instead
-// make gif
-//add questions
-
 //Define global variables
 var timer;
 var timerCount;
@@ -58,22 +54,36 @@ var questions = [
     choices: ["JSON", "AJAX", "API", "MongoDB"],
     correct: "0",
 },
+{
+    prompt: "What is one of the most popular JavaScript libraries?",
+    choices: ["JSON", "jFetch", "querySelect", "jQuery"],
+    correct: "3",
+},
+{
+    prompt: "Which of the following allows for the local storage of data?",
+    choices: ["MongoDB", "localStorage", "clientStorage", "clientData"],
+    correct: "1",
+},
+{
+    prompt: "What is the name for a JavaScript structure that holds key:value pairs?",
+    choices: ["Object", "Array", "Function", "Boolean"],
+    correct: "0",
+},
 ]
 
 init();
 
 function init() {
     getHighscore();
-    timerCount = 20;
-    timerElement.textContent = timerCount;
 }
 
 function getHighscore() {
-    leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
-    leaderboard.sort((a, b) => b.score - a.score);
-    for (var i = 0; (i < 1); i++) {
-        var list = document.createElement('li');
-        highScoreDisplay.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
+    if (JSON.parse(localStorage.getItem("leaderboard"))) {
+        leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+        leaderboard.sort((a, b) => b.score - a.score);
+        for (var i = 0; (i < 1); i++) {
+            highScoreDisplay.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
+        }
     }
 };
 
@@ -87,6 +97,8 @@ function startGame() {
 // Start the Timer, set trigger for the end of game
 function startTimer() {
     startButton.setAttribute("class", "d-none");
+    timerCount = 50;
+    timerElement.textContent = timerCount;
     // Sets timer
     timer = setInterval(function() {
       timerCount--;
@@ -202,11 +214,6 @@ function gameOver() {
 function saveName(event) {
     event.preventDefault();
     var playerName = player.value.trim();
-    // if score is higher than previous value of highscore, replace as new value and save new high score
-    if (score > highscore) {
-        highscore = score;
-        highScoreDisplay.textContent = playerName + ", " + score;
-    }
     var user = {
         name: playerName,
         score: score,
@@ -225,11 +232,14 @@ function buildLeaderboard() {
     // Retrieve leaderboard array from local storage, sort it in descending order based on score value, and create a list with the top 4 scores
     leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
     leaderboard.sort((a, b) => b.score - a.score);
+    var leader = document.createElement('ol');
+    leader.setAttribute("class", "text-left");
+    questionPrompt.appendChild(leader);
     for (var i = 0; (i < leaderboard.length) && (i <4); i++) {
         var list = document.createElement('li');
         list.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
         list.style = "font-size: .7em";
-        questionPrompt.appendChild(list);
+        leader.appendChild(list);
     }
     // Create "Play Again?" button
     var play = document.createElement('button');
@@ -237,7 +247,7 @@ function buildLeaderboard() {
     play.textContent = "Play Again?"
     playBtn = document.querySelector("#playAgain")
     playBtn.appendChild(play);
-    play.setAttribute("class", "btn btn-primary px-4 mt-2");
+    play.setAttribute("class", "btn btn-primary px-4");
     play.addEventListener("click", playAgain);
 };
 
