@@ -2,8 +2,63 @@ body {
     background-color: white;
 }
 
+header {
+    margin-bottom: 50px;
+    position: relative;
+}
+
+#powered {
+    display: inline-block;
+    position: absolute;
+    left: 80px;
+    top: 20px;
+    font-size: 12px;
+}
+
+#intelly-logo {
+    height: 50px;
+    margin-top: 40px;
+    margin-left: 30px;
+    display: inline-block;
+}
+
+#quiz-class {
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+    margin-right: 30px;
+    font-size: 20px;
+}
+
 #spacer {
     height: 100px;
+}
+
+main {
+    height: 100vh;
+    position: relative;
+}
+
+main::before {
+    content: "";
+    background-image: url("../images/phoodie.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: .2;
+}
+
+#card {
+    background: rgba(255, 255, 255, 0.7); 
+}
+
+.start-hide {
+    display: none;
 }
 
 #correctText {

@@ -8,13 +8,14 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <title>Quiz App</title>
 </head>
-<body id="body" class="container-fluid mr-3 ml-3">
+<body id="body">
     <header>
-        <div class="row">
-            <div class="pt-3 col-2">Highscore:<br>
+            <!-- <div class="pt-3 col-2">Highscore:<br>
                 <span id="highscore"></span>
-            </div>
-            <div class="col-3"></div>
+            </div> -->
+        <span id="powered"><em>powered by:</em></span>
+        <img src="./assets/images/intelly_logo.png" alt="Phoodie Logo" id="intelly-logo">
+            <!-- <div class="col-3"></div>
             <div class="pt-3 col-2">
                 <div class="text-center">
                     <span>Current Score:&nbsp;</span>
@@ -23,18 +24,15 @@
             </div>
             <div class="col-3"></div>
             <div class="pt-3 pr-5 col-2">
-                <div class="text-right" id="timer">
-                    <span>Time Left:&nbsp;</span>
-                    <span id="timerCount"></span>
-                </div>
-            </div>
-        </div>
-        <div id="spacer"></div>
-        <h1 class="pt-5 text-center">JavaScript Basics Quiz</h1>
+                <div class="text-right" id="timer"> -->
+        <span id="quiz-class">Onboarding Quiz 1 of 5</span>
+                    <!-- <span id="timerCount"></span> -->
+            <!-- </div> -->
     </header>
     <main>
+        <h1 class="pt-5 text-center" id="quiz-title">Company Policy Quiz</h1>
         <div class="d-flex flex-column justify-content-center align-items-center" id="card">
-            <div class="card d-flex flex-column justify-content-center align-items-center mt-5" style="width: 500px; height: 200px">
+            <div class="card d-flex flex-column justify-content-center align-items-center mt-5" id="card" style="width: 500px; height: 200px">
                 <button type=button id="start" class="btn btn-primary px-4 mt-5" value="HELLO">Start</button>
                 <div class="mb-4 h3 text-center" id="question">
                 </div>

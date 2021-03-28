@@ -30,75 +30,75 @@ startButton.addEventListener("click", startGame);
 // Questions array
 var questions = [
 {
-    prompt: "Which HTML tag is used to link a javascript file?",
-    choices: ["<javascript>", "<scripted>", "<script>", "<js>"],
-    correct: "2",
-},
-{
-    prompt: "What is the correct full syntax for linking script.js to an HTML file?",
-    choices: ["<script src=”geek.js”>", " <script href=”geek.js”>", " <script ref=”geek.js”>", "<script name=”geek.js”>"],
-    correct: "0",
-},
-{
-    prompt: "Which symbols are used to enclose an array?",
-    choices: ["{}", "[]", "<>", "()"],
-    correct: "1",
-},
-{
-    prompt: "Which of the following is not a reserved word in JavaScript?",
-    choices: ["interface", "throws", "program", "short"],
-    correct: "2",
-},
-{
-    prompt: "Which is a way of allowing JavaScript objects to be easily communicated with other languages?",
-    choices: ["JSON", "AJAX", "API", "MongoDB"],
-    correct: "0",
-},
-{
-    prompt: "What is one of the most popular JavaScript libraries?",
-    choices: ["JSON", "jFetch", "querySelect", "jQuery"],
+    prompt: " What is a demo?",
+    choices: ["When you tear down a house", "A an event where you score free stuff", "An event where you hand out free product randomly", "A tasting event held at grocery stores"],
     correct: "3",
 },
 {
-    prompt: "Which of the following allows for the local storage of data?",
-    choices: ["MongoDB", "localStorage", "clientStorage", "clientData"],
+    prompt: "There are generally two possible shifts that you can be scheduled for.  What are the times of these shifts?",
+    choices: ["9am-12pm, 12pm-3pm", "11am-2pm, 3pm-6pm", "9am-12pm, 3pm-6pm", "3pm-6pm, 6pm-7pm"],
     correct: "1",
 },
-{
-    prompt: "What is the name for a JavaScript structure that holds key:value pairs?",
-    choices: ["Object", "Array", "Function", "Boolean"],
-    correct: "0",
-},
+// {
+//     prompt: "What are the two most important goals of a successful demo?",
+//     choices: ["Generate sales, positive customer experiences ", "Eat snacks, make friends", "Check your e-mail, chat with people", "Sell out, leave early"],
+//     correct: "0",
+// },
+// {
+//     prompt: "When does Phoodie need your availability for the upcoming month?",
+//     choices: ["On the first of each month", "On the 12th of the month prior", "On the 20th of the month prior ", "No need to send this"],
+//     correct: "1",
+// },
+// {
+//     prompt: "Your shift starts at 3pm, when should you arrive at the store?",
+//     choices: ["3pm", "2:45pm", "2pm", "2:30pm"],
+//     correct: "1",
+// },
+// {
+//     prompt: "How long does Phoodie need to fulfill a supply request?",
+//     choices: ["1 week", "1 month", "2 weeks", "10 days"],
+//     correct: "2",
+// },
+// {
+//     prompt: "What do you do if you can't find the answers you need in the Knowledge Base?",
+//     choices: ["Call Phoodie Management", "Send e-mail to all Phoodie management", "Send an e-mail to Help@phoodiemktg.com", "Send Phoodie a Facebook message "],
+//     correct: "2",
+// },
+// {
+//     prompt: "What do you do if you have an urgent need or emergency?",
+//     choices: ["Call the Brand you are demoing for", "Text the Phoodie SOS line and we will get in touch ASAP", "Call your RBA until they pick up", "Call a fellow brand ambassador "],
+//     correct: "1",
+// },
 ]
 
 // trigger init function, which loads the highscore upon page load, if there is one in localStorage
-init();
+// init();
 
-function init() {
-    getHighscore();
-}
+// function init() {
+//     getHighscore();
+// }
 
 // Loads the current high score to be displayed on the page
-function getHighscore() {
-    if (JSON.parse(localStorage.getItem("leaderboard"))) {
-        leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
-        leaderboard.sort((a, b) => b.score - a.score);
-        for (var i = 0; (i < 1); i++) {
-            highScoreDisplay.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
-        }
-    }
-};
+// function getHighscore() {
+//     if (JSON.parse(localStorage.getItem("leaderboard"))) {
+//         leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+//         leaderboard.sort((a, b) => b.score - a.score);
+//         for (var i = 0; (i < 1); i++) {
+//             highScoreDisplay.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
+//         }
+//     }
+// };
 
 // Start the game
 function startGame() {
     startButton.disabled = true;
-    startTimer();
+    startButton.setAttribute("class", "start-hide");
+    // startTimer();
     askQuestion();
 };
 
 // Start the timer, set trigger for the end of game
 function startTimer() {
-    startButton.setAttribute("class", "d-none");
     timerCount = 50;
     timerElement.textContent = timerCount;
     // Sets timer
@@ -160,7 +160,7 @@ function checkAnswer() {
     if (this.value == question.correct) {
         correctText.setAttribute("id", "correctText.show");
         score++;
-        currentScore.textContent = score;
+        // currentScore.textContent = score;
         questionNumber++;
         questionPrompt.removeChild(ask);
         choicesDisplay.removeChild(btn1);
@@ -173,10 +173,27 @@ function checkAnswer() {
     // if incorrect answer, deduct time, display "Wrong!" for 50 milliseconds
     } else {
         wrongText.setAttribute("id", "wrongText.show");
-        timerCount -= 3;
+        // timerCount -= 3;
         setTimeout(function() { wrongText.setAttribute("id", "wrongText"); }, 500);
     }
+    checkDone();
 };
+
+function checkDone() {
+    if (questionNumber == questions.length) {
+        // correctText.setAttribute("id", "correctText");
+        // if (questionNumber < questions.length) {
+        // questionPrompt.removeChild(ask);
+        target = choicesDisplay;
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+            }
+            gameOver();
+        }
+        // clearInterval(timer);
+        // timerCount = 0;
+        // timerElement.textContent = timerCount;
+}
 
 // End game, submit name
 function gameOver() {
@@ -232,25 +249,35 @@ function saveName(event) {
 
 function buildLeaderboard() {
     // Retrieve leaderboard array from local storage, sort it in descending order based on score value, and create a list with the top 4 scores
-    leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
-    leaderboard.sort((a, b) => b.score - a.score);
-    var leader = document.createElement('ol');
-    leader.setAttribute("class", "text-left");
-    questionPrompt.appendChild(leader);
-    for (var i = 0; (i < leaderboard.length) && (i <4); i++) {
-        var list = document.createElement('li');
-        list.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
-        list.style = "font-size: .7em";
-        leader.appendChild(list);
-    }
+    // leaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+    // leaderboard.sort((a, b) => b.score - a.score);
+    // var leader = document.createElement('ol');
+    // leader.setAttribute("class", "text-left");
+    // questionPrompt.appendChild(leader);
+    // for (var i = 0; (i < leaderboard.length) && (i <4); i++) {
+    //     var list = document.createElement('li');
+    //     list.textContent = leaderboard[i].name + " : " + leaderboard[i].score;
+    //     list.style = "font-size: .7em";
+    //     leader.appendChild(list);
+    // }
     // Create "Play Again?" button
-    var play = document.createElement('button');
-    play.id = "play"
-    play.textContent = "Play Again?"
-    playBtn = document.querySelector("#playAgain")
-    playBtn.appendChild(play);
-    play.setAttribute("class", "btn btn-primary px-4");
-    play.addEventListener("click", playAgain);
+    // var play = document.createElement('button');
+    // play.id = "play"
+    // play.textContent = "Play Again?"
+    // playBtn = document.querySelector("#playAgain")
+    // playBtn.appendChild(play);
+    // play.setAttribute("class", "btn btn-primary px-4");
+    // play.addEventListener("click", playAgain);
+    var target = document.querySelector('#question');
+    var thanks = document.createElement('p');
+    thanks.setAttribute('class', 'h6');
+    thanks.id = "thankYou"
+    thanks.innerHTML = `<br>Thank you for taking this quiz! <br><br> Your score was ${score}. <br><br> An onboarding representative will be in touch if any feedback is necessary. Meanwhile. please proceed to the next segment once you are ready.`
+    target.appendChild(thanks);
+    // playBtn = document.querySelector("#playAgain")
+    // playBtn.appendChild(play);
+    // play.setAttribute("class", "btn btn-primary px-4");
+    // play.addEventListener("click", playAgain);
 };
 
 // Offer user a chance to play again and call functions to reset game to pre-start status
@@ -266,5 +293,5 @@ function playAgain() {
     timerCount = 0;
     score = 0;
     timerElement.textContent = timerCount;
-    getHighscore();
+    // getHighscore();
 };
