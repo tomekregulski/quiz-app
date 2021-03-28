@@ -1,33 +1,22 @@
 # quiz-app
 
 * [Description ](#description)
-* [What I Learned](#what-i-learned)
+* [Next Steps](#next-steps)
 * [Installation and Usage](#installation-and-usa)
 * [License](#license)
 
 ![homepage min](assets/images/demo1.png)
-![homepage min](assets/images/demo2.png)
-![homepage min](assets/images/demo3.png)
-![homepage min](assets/images/demo4.png)
 
 # Description
 
-This is a simple, multiple-choice quiz app. Upon pressing "start", the user is present with a question and four answer choices. Choosing an incorrect answer will display a brief "wrong!" message, and subtract 4 seconds from the time remaining. Choosing a correct answer will display a brief "correct!" message, increase the score by 1, and display a new question. The game concludes once the timer reaches 0, or if the user manages to answer all the questions. At this point, the user is given the opportunity to submit their name and score, which will be added as a key:value pair to the leaderboard object array, which is stored in localStorage. If the score is the new high score, then the user's name and score will be displayed as the high score once the game resets. The final screen is the leaderboard, which shows to top 4 scores form the leaderboard object array.
+This is a simple, multiple-choice quiz app, developed with the intention of becoming a template for companies to administer onboarding tests. Upon pressing "start", the user is present with a question and four answer choices. Choosing an incorrect answer will display a brief "wrong!" message; whereas choosing a correct answer will display a brief "correct!" message, and display a new question. The game concludes once the all the questions have been answered. Upon completion, the user submits their name and score, which will be stored so management can review and follow up if needed. The user is then presented with a final message thanking them for their time and giving instructions for any next steps. 
 
 This page has been deployed on Github, and can be viewed here:  https://tomekregulski.github.io/quiz-app/
 
-# What I Learned
+# Next Steps
 
--organizing and coordinating complex actions via JS
--leaning on JS to create a dynamic page while keeping HTML minimal
--create, style, and remove elements through JS
--utilize Bootstrap's styling
--work with a timer in JS
--use an object array to display specific information based on triggers
--use event listeners to coordinate a sequence of actions and create an interactive experience
--use arrays and local storage to save and recall information
--sort through an object array based on a shared value
--think through a full game and consider what is necessary in order to make the experience complete
+-The styling is at a mid-point. I will likely remove Bootstrap and redo everything from scrath to make it all more flexible. 
+-There is some functionality left over from a previous approach to how score is kept, and how the user progrersses through the quiz. This needs to be updated in order to be in line with the current objectives of this app. 
 
 # Installation and Use
 
