@@ -130,9 +130,9 @@ function askQuestion() {
     question = questions[questionNumber]; 
     // pulls question info from the array, creates span and button elements
     ask = document.createElement('span');
-    ask.setAttribute("class", "mt-4");
+    ask.setAttribute("class", "h4");
     ask.textContent = questions[questionNumber].prompt;
-    ask.setAttribute("style", "font-size: .5em");
+    // ask.setAttribute("style", "font-size: .8em");
     ask.id = "ask";
     questionPrompt.appendChild(ask);
     for (var i = 0; i < question.choices.length; i++) {
@@ -140,7 +140,7 @@ function askQuestion() {
         choice.textContent = question.choices[i];
         choice.id = "button" + (i + 1);
         choice.value = i;
-        choice.setAttribute("class", "btn-sm btn-primary px-2 mx-2 mt-1");
+        choice.setAttribute("class", "btn-sm btn-primary px-3 mx-2 mb-3");
         choicesDisplay.appendChild(choice);
     }
     // create event listeners for the answer buttons so answer selection can be checked for correct/incorrect
@@ -198,6 +198,7 @@ function checkDone() {
 // End game, submit name
 function gameOver() {
     // define and create name submit form elements
+    setTimeout(function() { correctText.setAttribute("id", "correctText"); }, 500);
     var target = document.querySelector('#yourName');
     var form = document.createElement('form');
     var div = document.createElement('div');
@@ -216,9 +217,10 @@ function gameOver() {
     field.id = "player";
     field.type = "text";
     field.name = "player";
+    form.setAttribute('class', 'pl-5 pt-4 pr-5')
     submit.textContent = "Submit";
-    submit.setAttribute("class", "btn-sm btn-success px-4 mt-2");
-    field.setAttribute("class", "form-control");
+    submit.setAttribute("class", "btn-sm btn-success mt-2 mb-4 ml-5");
+    field.setAttribute("class", "form-control mr-4");
     div.setAttribute("class", "form-inline");
     target.appendChild(form);
     form.appendChild(div);
