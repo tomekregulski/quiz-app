@@ -17,8 +17,7 @@ This page has been deployed on Github, and can be viewed here: https://tomekregu
 
 # Next Steps
 
--The styling is at a mid-point. I will likely remove Bootstrap and redo everything from scrath to make it all more flexible.
--There is some functionality left over from a previous approach to how score is kept, and how the user progrersses through the quiz. This needs to be updated in order to be in line with the current objectives of this app.
+The styling is at a mid-point. I will likely remove Bootstrap and redo everything from scrath to make it all more flexible. Additionally, I would like to add a database so scores can be tracked over time. Finally, and ultiamtely, I hope to add functionality that allows multiple quizzes to be created and edited over time through a form.
 
 # Installation and Use
 
