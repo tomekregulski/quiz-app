@@ -26,3 +26,4 @@ Clone the repo and open the folder in the code editor of your choice.
 # License
 
 [MIT License](https://opensource.org/licenses/MIT)
+<br><br> Your score was ${score}. <br><br> An onboarding representative will be in touch if any feedback is necessary. Meanwhile. please proceed to the next segment once you are ready.`;

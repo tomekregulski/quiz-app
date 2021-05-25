@@ -198,6 +198,6 @@ function thankYou() {
   var thanks = document.createElement("p");
   thanks.setAttribute("class", "h6");
   thanks.id = "thankYou";
-  thanks.innerHTML = `<br>Thank you for taking this quiz! <br><br> Your score was ${score}. <br><br> An onboarding representative will be in touch if any feedback is necessary. Meanwhile. please proceed to the next segment once you are ready.`;
+  thanks.innerHTML = `<br>Thank you for taking this quiz!" <br><br> Your score was ${score}. <br><br> An onboarding representative will be in touch if any feedback is necessary. Meanwhile. please proceed to the next segment once you are ready.`;
   target.appendChild(thanks);
-}
+};
